@@ -30,6 +30,8 @@ jobs:
           dotnetBuildArguments: Your project file or solution file including relative path goes here
           # The SonarQube server URL. For SonarCloud, skip this setting.
           sonarHostname:  the full url of your SonarQube server instance goes here
+          # Pass github event pull_request head sha
+          sonarBeginArguments: /d:sonar.scm.revision=${{ github.event.pull_request.head.sha }}
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}

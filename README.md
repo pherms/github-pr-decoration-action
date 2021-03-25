@@ -1,11 +1,11 @@
 # Github-PR-decoration-Action
-This github action will use sonarscanner to analyse your Pull Request against a running SOnarqube instance (either a privately operated or Sonarcloud).
+This github action will use sonarscanner to analyse your Pull Request against a running SOnarqube instance (either a privately operated or Sonarcloud).  
 When the analysis has finished, the report will be published on the "Checks" tab on the PR in Github.
 
-Please see the /documentation/analysis/pr-decoration/ on your SonarQube instance on how to setup Sonarsqube to enable PR decoration.
+Please see the /documentation/analysis/pr-decoration/ on your SonarQube instance on how to setup Sonarsqube to enable PR decoration.  
 How to setup an app in Github, you can read on https://docs.github.com/en/developers/apps/creating-a-github-app.
 
-To run the sonarscanner an decorate your pull requests, paste the code from the sonarqube-pr-decoration.yml file in the action, enter the values for sonarProjectKey, sonarProjectName, sonarProjectKey, dotnetBuildArguments and sonarHostName and save it.
+To run the sonarscanner an decorate your pull requests, paste the code from the sonarqube-pr-decoration.yml file in the action, enter the values for **sonarProjectKey, sonarProjectName, sonarProjectKey, dotnetBuildArguments** and **sonarHostName** and save it.
 
 ```yaml
 on: 
@@ -34,6 +34,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
 ```
-Please make sure you create 2 secrets in your repository.
-The first one will store your SonarQube token, which you can setup in your SOnarQube account.
+Please make sure you create 2 secrets in your repository.  
+The first one will store your SonarQube token, which you can setup in your SOnarQube account.  
 The second one will store your github token. You can setup a new Personal access token in the developer settings in your Github Profile.

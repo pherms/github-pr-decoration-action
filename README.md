@@ -5,7 +5,7 @@ When the analysis has finished, the report will be published on the "Checks" tab
 Please see the /documentation/analysis/pr-decoration/ on your SonarQube instance on how to setup Sonarsqube to enable PR decoration.
 How to setup an app in Github, you can read on https://docs.github.com/en/developers/apps/creating-a-github-app.
 
-To run the sonarscanner an decorate your pull requests, paste the code from the sonarqube-pr-decoration.yml file in the action and save it.
+To run the sonarscanner an decorate your pull requests, paste the code from the sonarqube-pr-decoration.yml file in the action, enter the values for sonarProjectKey, sonarProjectName, sonarProjectKey, dotnetBuildArguments and sonarHostName and save it.
 
 ```yaml
 on: 

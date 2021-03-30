@@ -1,5 +1,5 @@
 # Github-PR-decoration-Action
-This github action will use sonarscanner to analyse your Pull Request against a running SOnarqube instance (either a privately operated or Sonarcloud).  
+This github action will use sonarscanner to analyse your Pull Request against a running Sonarqube instance (either a privately operated or Sonarcloud).  
 When the analysis has finished, the report will be published on the "Checks" tab on the PR in Github.
 
 Please see the /documentation/analysis/pr-decoration/ on your SonarQube instance on how to setup Sonarsqube to enable PR decoration.  

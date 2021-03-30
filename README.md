@@ -34,8 +34,7 @@ jobs:
           sonarBeginArguments: /d:sonar.scm.revision=${{ github.event.pull_request.head.sha }}
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-Please make sure you create 2 secrets in your repository.  
+Please make sure you create 1 secret in your repository.  
 The first one will store your SonarQube token, which you can setup in your SOnarQube account.  
-The second one will store your github token. You can setup a new Personal access token in the developer settings in your Github Profile.

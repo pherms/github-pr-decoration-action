@@ -38,3 +38,8 @@ jobs:
 ```
 Please make sure you create 1 secret in your repository.  
 The first one will store your SonarQube token, which you can setup in your SOnarQube account.  
+
+## Setup script
+There is also a setup-script that can be used to easily setup both the action on Github as well as setup the project on Sonarqube. 
+The scripts are in the folder setup-scripts. At the moment there is only a bash script. 
+Run the script and enter the information that is required.

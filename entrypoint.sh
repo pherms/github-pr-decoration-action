@@ -15,7 +15,7 @@ if [ -z "$SONAR_TOKEN" ]; then
     echo "Environment parameter SONAR_TOKEN is required"
     exit 1
 fi
-if [ -z "$INPUT_SONARDISABLESCAN" ]; then
+if [ -z "$INPUT_SONARENABLESCAN" ]; then
     echo "Enable/disable sonarscan is required"
     exit 1
 fi

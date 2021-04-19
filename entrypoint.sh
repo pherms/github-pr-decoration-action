@@ -30,7 +30,7 @@ echo "INPUT_DOTNETTESTARGUMENTS: $INPUT_DOTNETTESTARGUMENTS"
 echo "INPUT_DOTNETDISABLETESTS: $INPUT_DOTNETDISABLETESTS"
 echo "INPUT_SONARBEGINARGUMENTS: $INPUT_SONARBEGINARGUMENTS"
 echo "INPUT_SONARHOSTNAME: $INPUT_SONARHOSTNAME"
-echo "INPUT_SONARDISABLESCAN: $INPUT_SONARDISABLESCAN"
+echo "INPUT_SONARENABLESCAN: $INPUT_SONARENABLESCAN"
 
 # Environment variables that need to be mapped in Github Action 
 #     env:
@@ -86,7 +86,7 @@ echo "INPUT_SONARDISABLESCAN: $INPUT_SONARDISABLESCAN"
 #-----------------------------------
 # Build Sonarscanner begin command
 #-----------------------------------
-if [[ "$INPUT_SONARDISABLESCAN" == "false" ]]; then
+if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
     sonar_begin_cmd="/dotnet-sonarscanner begin /k:\"${INPUT_SONARPROJECTKEY}\" /n:\"${INPUT_SONARPROJECTNAME}\" /d:sonar.login=\"${SONAR_TOKEN}\" /d:sonar.host.url=\"${INPUT_SONARHOSTNAME}\""
     if [ -n "$INPUT_SONARORGANIZATION" ]; then
         sonar_begin_cmd="$sonar_begin_cmd /o:\"${INPUT_SONARORGANIZATION}\""
@@ -115,7 +115,7 @@ fi
 #-----------------------------------
 # Build Sonarscanner end command
 #-----------------------------------
-if [[ "$INPUT_SONARDISABLESCAN" == "false" ]]; then
+if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
     sonar_end_cmd="/dotnet-sonarscanner end /d:sonar.login=\"${SONAR_TOKEN}\""
 fi
 
@@ -141,7 +141,7 @@ fi
 echo "Shell commands"
 
 #Run Sonarscanner .NET Core "begin" command.
-if [[ "$INPUT_SONARDISABLESCAN" == "false" ]]; then
+if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
     echo "sonar_begin_cmd: $sonar_begin_cmd"
     sh -c "$sonar_begin_cmd"
 fi
@@ -157,7 +157,7 @@ if ! [[ "${INPUT_DOTNETDISABLETESTS,,}" == "true" || "${INPUT_DOTNETDISABLETESTS
 fi
 
 #Run Sonarscanner .NET Core "end" command
-if [[ "$INPUT_SONARDISABLESCAN" == "false" ]]; then
+if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
     echo "sonar_end_cmd: $sonar_end_cmd"
     sh -c "$sonar_end_cmd"
 fi

@@ -28,9 +28,9 @@ inputs:
     description: "The SonarQube server URL. For SonarCloud, skip this setting."
     default: "https://sonarcloud.io"
     required: false
-  sonarDisableScan:
+  sonarEnableScan:
     description: "Disable running of sonar scanner."
-    default: false
+    default: true
     required: true
 
 runs:

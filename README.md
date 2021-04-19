@@ -12,15 +12,15 @@ on:
   pull_request:
     branches:
       - develop
-name: Sonarscanner and PR decoration
+name: Dotnet build, Sonarscanner and PR decoration
 jobs:
   sonarscanner-pr-decoration:
     runs-on: ubuntu-latest
-    name: Sonarscanner and PR decoration
+    name: Dotnet build, Sonarscanner and PR decoration
     steps:
       - uses: actions/checkout@v2
-      - uses: highbyte/sonarscan-dotnet@2.0
-        name: SonarScanner for .NET 5 with pull request decoration support
+      - uses: xablu/github-pr-decoration-action@main
+        name: Dotnet build and SonarScanner for .NET 5 with pull request decoration support
         with:
           # The key of the SonarQube project
           sonarProjectKey: your sonarqube project key goes here
@@ -32,6 +32,8 @@ jobs:
           sonarHostname:  the full url of your SonarQube server instance goes here
           # Pass github event pull_request head sha
           sonarBeginArguments: /d:sonar.scm.revision=${{ github.event.pull_request.head.sha }}
+          # Enable or disable Sonarscan (true=enable, false=disable)
+          sonarDisableScan: true
         env:
           SONAR_TOKEN: ${{ secrets.SONARQUBE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -40,6 +42,9 @@ Please make sure you create 1 secret in your repository.
 The first one will store your SonarQube token, which you can setup in your SOnarQube account.  
 
 ## Setup script
-There is also a setup-script that can be used to easily setup both the action on Github as well as setup the project on Sonarqube. 
-The scripts are in the folder setup-scripts. At the moment there is only a bash script. 
+Requirements:  
+* git-lfs  
+  
+There is also a setup-script that can be used to easily setup both the action on Github as well as setup the project on Sonarqube.  
+The scripts are in the folder setup-scripts. At the moment there is only a bash script.  
 Run the script and enter the information that is required.

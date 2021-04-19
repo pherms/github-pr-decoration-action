@@ -1,5 +1,4 @@
-#FROM mcr.microsoft.com/dotnet/sdk:5.0
-FROM mcr.microsoft.com/macos-latest
+FROM mcr.microsoft.com/dotnet/sdk:5.0
 
 LABEL "com.github.actions.name"="dotnet build"
 LABEL "com.github.actions.description"="Dotnet build with Sonarscanner for .NET 5 and pull request decoration support."

@@ -120,6 +120,14 @@ if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
 fi
 
 #-----------------------------------
+# Dotnet restore command
+#-----------------------------------
+dotnet_restore_cmd="dotnet restore"
+if [ -n "$INPUT_DOTNETBUILDARGUMENTS" ]; then
+    dotnet_restore_cmd="$dotnet_restore_cmd $INPUT_DOTNETBUILDARGUMENTS"
+fi
+
+#-----------------------------------
 # Build dotnet build command
 #-----------------------------------
 dotnet_build_cmd="dotnet build"
@@ -139,6 +147,10 @@ fi
 # Execute shell commands
 #-----------------------------------
 echo "Shell commands"
+
+#Run Dotnet Restore command
+echo "Restoring NuGet packages"
+sh -c "${dotnet_restore_cmd}"
 
 #Run Sonarscanner .NET Core "begin" command.
 if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then

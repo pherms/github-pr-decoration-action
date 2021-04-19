@@ -136,7 +136,7 @@ fi
 #-----------------------------------
 echo "Shell commands"
 
-#Run Sonarscanner .NET Core "begin" command
+#Run Sonarscanner .NET Core "begin" command.
 if [[ $INPUT_SONARDISABLESCAN == "false" ]]; then
     echo "sonar_begin_cmd: $sonar_begin_cmd"
     sh -c "$sonar_begin_cmd"

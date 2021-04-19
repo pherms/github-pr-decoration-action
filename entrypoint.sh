@@ -149,7 +149,7 @@ fi
 echo "Shell commands"
 
 #Run Dotnet Restore command
-echo "Restoring NuGet packages"
+echo "Restoring NuGet packages found in $GITHUB_WORKSPACE/$INPUT_DOTNETBUILDARGUMENTS"
 sh -c "${dotnet_restore_cmd}"
 
 #Run Sonarscanner .NET Core "begin" command.

@@ -42,4 +42,7 @@ RUN apt-get -q -y autoremove \
 
 ADD entrypoint.sh /entrypoint.sh
 
+# Enable execution
+RUN chmod +x /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]

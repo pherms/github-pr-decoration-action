@@ -124,7 +124,7 @@ fi
 #-----------------------------------
 dotnet_restore_cmd="dotnet restore"
 if [ -n "$INPUT_DOTNETBUILDARGUMENTS" ]; then
-    dotnet_restore_cmd="$dotnet_restore_cmd $INPUT_DOTNETBUILDARGUMENTS"
+    dotnet_restore_cmd="$dotnet_restore_cmd $GITHUB_WORKSPACE/$INPUT_DOTNETBUILDARGUMENTS"
 fi
 
 #-----------------------------------

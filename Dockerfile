@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0
+FROM mcr.microsoft.com/dotnet/sdk:5.0.201
 
 LABEL "com.github.actions.name"="dotnet build"
 LABEL "com.github.actions.description"="Dotnet build with Sonarscanner for .NET 5 and pull request decoration support."
@@ -28,6 +28,7 @@ RUN apt-get update -y \
     && apt-get install --no-install-recommends -y apt-transport-https \
     && apt-get update -y \
     && apt-get install --no-install-recommends -y aspnetcore-runtime-$DOTNETCORE_RUNTIME_VERSION
+    && apt-get install -y nuget
 #    && apt-get install -y dotnet-sdk-$DOTNETCORE_RUNTIME_VERSION
 
 # Install Java Runtime for SonarScanner

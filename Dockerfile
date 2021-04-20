@@ -27,7 +27,7 @@ RUN mkdir -p /usr/share/man/man1
 RUN apt-get update -y \
     && apt-get install --no-install-recommends -y apt-transport-https \
     && apt-get update -y \
-    && apt-get install --no-install-recommends -y aspnetcore-runtime-$DOTNETCORE_RUNTIME_VERSION
+    && apt-get install --no-install-recommends -y aspnetcore-runtime-$DOTNETCORE_RUNTIME_VERSION \
     && apt-get install -y nuget
 #    && apt-get install -y dotnet-sdk-$DOTNETCORE_RUNTIME_VERSION
 

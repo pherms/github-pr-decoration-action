@@ -11,7 +11,7 @@ if [ -z "$INPUT_SONARPROJECTNAME" ]; then
     echo "Input parameter sonarProjectName is required"
     exit 1
 fi
-if [ -z "$INPUT_SONARTOKEN" ]; then
+if [ -z "$SONAR_TOKEN" ]; then
     echo "Environment parameter SONAR_TOKEN is required"
     exit 1
 fi
@@ -87,7 +87,7 @@ echo "INPUT_SONARENABLESCAN: $INPUT_SONARENABLESCAN"
 # Build Sonarscanner begin command
 #-----------------------------------
 if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
-    sonar_begin_cmd="dotnet-sonarscanner begin /k:\"${INPUT_SONARPROJECTKEY}\" /n:\"${INPUT_SONARPROJECTNAME}\" /d:sonar.login=\"${INPUT_SONARTOKEN}\" /d:sonar.host.url=\"${INPUT_SONARHOSTNAME}\""
+    sonar_begin_cmd="dotnet-sonarscanner begin /k:\"${INPUT_SONARPROJECTKEY}\" /n:\"${INPUT_SONARPROJECTNAME}\" /d:sonar.login=\"${SONAR_TOKEN}\" /d:sonar.host.url=\"${INPUT_SONARHOSTNAME}\""
     if [ -n "$INPUT_SONARORGANIZATION" ]; then
         sonar_begin_cmd="$sonar_begin_cmd /o:\"${INPUT_SONARORGANIZATION}\""
     fi
@@ -116,7 +116,7 @@ fi
 # Build Sonarscanner end command
 #-----------------------------------
 if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
-    sonar_end_cmd="dotnet-sonarscanner end /d:sonar.login=\"${INPUT_SONARTOKEN}\""
+    sonar_end_cmd="dotnet-sonarscanner end /d:sonar.login=\"${SONAR_TOKEN}\""
 fi
 
 #-----------------------------------

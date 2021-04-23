@@ -122,7 +122,7 @@ fi
 #-----------------------------------
 # Dotnet restore command
 #-----------------------------------
-dotnet_restore_cmd="dotnet restore"
+dotnet_restore_cmd="nuget restore"
 if [ -n "$INPUT_DOTNETBUILDARGUMENTS" ]; then
     dotnet_restore_cmd="$dotnet_restore_cmd $GITHUB_WORKSPACE/$INPUT_DOTNETBUILDARGUMENTS"
 fi
@@ -130,9 +130,9 @@ fi
 #-----------------------------------
 # Build dotnet build command
 #-----------------------------------
-dotnet_build_cmd="dotnet build"
+dotnet_build_cmd="msbuild"
 if [ -n "$INPUT_DOTNETBUILDARGUMENTS" ]; then
-    dotnet_build_cmd="$dotnet_build_cmd $INPUT_DOTNETBUILDARGUMENTS"
+    dotnet_build_cmd="$dotnet_build_cmd /p:Configuration=Debug $INPUT_DOTNETBUILDARGUMENTS"
 fi
 
 #-----------------------------------
@@ -163,7 +163,7 @@ echo "dotnet_build_cmd: $dotnet_build_cmd"
 sh -c "${dotnet_build_cmd}"
 
 #Run dotnet test command (unless user choose not to)
-if ! [[ "${INPUT_DOTNETDISABLETESTS,,}" == "true" || "${INPUT_DOTNETDISABLETESTS}" == "1" ]]; then
+if ! [[ "${INPUT_DOTNETDISABLETESTS}" == "true" || "${INPUT_DOTNETDISABLETESTS}" == "1" ]]; then
     echo "dotnet_test_cmd: $dotnet_test_cmd"
     sh -c "${dotnet_test_cmd}"
 fi

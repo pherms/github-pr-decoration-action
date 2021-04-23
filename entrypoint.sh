@@ -11,11 +11,11 @@ if [ -z "$INPUT_SONARPROJECTNAME" ]; then
     echo "Input parameter sonarProjectName is required"
     exit 1
 fi
-if [ -z "$INPUT_SONARTOKEN" ]; then
-    echo "Environment parameter SONAR_TOKEN is required"
-    echo "$INPUT_SONARTOKEN"
-    exit 1
-fi
+#if [ -z "$INPUT_SONARTOKEN" ]; then
+#    echo "Environment parameter SONAR_TOKEN is required"
+#    echo "$INPUT_SONARTOKEN"
+#    exit 1
+#fi
 if [ -z "$INPUT_SONARENABLESCAN" ]; then
     echo "Enable/disable sonarscan is required"
     exit 1

@@ -112,65 +112,34 @@ if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
 
     fi
 fi
-
 #-----------------------------------
 # Build Sonarscanner end command
 #-----------------------------------
-if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
-    sonar_end_cmd="dotnet-sonarscanner end /d:sonar.login=\"${INPUT_SONARTOKEN}\""
+set -e
+
+if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+	EVENT_ACTION=$(jq -r ".action" "${GITHUB_EVENT_PATH}")
+	if [[ "${EVENT_ACTION}" != "opened" ]]; then
+		echo "No need to run analysis. It is already triggered by the push event."
+		exit
+	fi
 fi
 
-#-----------------------------------
-# Dotnet restore command
-#-----------------------------------
-dotnet_restore_cmd="dotnet restore"
-if [ -n "$INPUT_DOTNETBUILDARGUMENTS" ]; then
-    dotnet_restore_cmd="$dotnet_restore_cmd $GITHUB_WORKSPACE/$INPUT_DOTNETBUILDARGUMENTS"
-fi
+REPOSITORY_NAME=$(basename "${GITHUB_REPOSITORY}")
 
-#-----------------------------------
-# Build dotnet build command
-#-----------------------------------
-dotnet_build_cmd="dotnet build"
-if [ -n "$INPUT_DOTNETBUILDARGUMENTS" ]; then
-    dotnet_build_cmd="$dotnet_build_cmd $INPUT_DOTNETBUILDARGUMENTS"
-fi
+[[ ! -z ${INPUT_PASSWORD} ]] && SONAR_PASSWORD="${INPUT_PASSWORD}" || SONAR_PASSWORD=""
 
-#-----------------------------------
-# Build dotnet test command
-#-----------------------------------
-dotnet_test_cmd="dotnet test"
-if [ -n "$INPUT_DOTNETTESTARGUMENTS" ]; then
-    dotnet_test_cmd="$dotnet_test_cmd $INPUT_DOTNETTESTARGUMENTS"
-fi
-
-#-----------------------------------
-# Execute shell commands
-#-----------------------------------
-echo "Shell commands"
-
-#Run Dotnet Restore command
-echo "Restoring NuGet packages found in $GITHUB_WORKSPACE/$INPUT_DOTNETBUILDARGUMENTS"
-sh -c "${dotnet_restore_cmd}"
-
-#Run Sonarscanner .NET Core "begin" command.
-if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
-    echo "sonar_begin_cmd: $sonar_begin_cmd"
-    sh -c "$sonar_begin_cmd"
-fi
-
-#Run dotnet build command
-echo "dotnet_build_cmd: $dotnet_build_cmd"
-sh -c "${dotnet_build_cmd}"
-
-#Run dotnet test command (unless user choose not to)
-if ! [[ "${INPUT_DOTNETDISABLETESTS,,}" == "true" || "${INPUT_DOTNETDISABLETESTS}" == "1" ]]; then
-    echo "dotnet_test_cmd: $dotnet_test_cmd"
-    sh -c "${dotnet_test_cmd}"
-fi
-
-#Run Sonarscanner .NET Core "end" command
-if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
-    echo "sonar_end_cmd: $sonar_end_cmd"
-    sh -c "$sonar_end_cmd"
+if [[ ! -f "${GITHUB_WORKSPACE}/sonar-project.properties" ]]; then
+  [[ -z ${INPUT_PROJECTKEY} ]] && SONAR_PROJECTKEY="${REPOSITORY_NAME}" || SONAR_PROJECTKEY="${INPUT_PROJECTKEY}"
+  [[ -z ${INPUT_PROJECTNAME} ]] && SONAR_PROJECTNAME="${REPOSITORY_NAME}" || SONAR_PROJECTNAME="${INPUT_PROJECTNAME}"
+  [[ -z ${INPUT_PROJECTVERSION} ]] && SONAR_PROJECTVERSION="" || SONAR_PROJECTVERSION="${INPUT_PROJECTVERSION}"
+  sonar-scanner \
+    -Dsonar.host.url=${INPUT_HOST} \
+    -Dsonar.projectKey=${SONAR_PROJECTKEY} \
+    -Dsonar.projectName=${SONAR_PROJECTNAME} \
+    -Dsonar.login=${INPUT_LOGIN} \
+else
+  sonar-scanner \
+    -Dsonar.host.url=${INPUT_HOST} \
+    -Dsonar.login=${INPUT_LOGIN} \
 fi

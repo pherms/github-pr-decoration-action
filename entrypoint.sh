@@ -136,9 +136,9 @@ if [[ ! -f "${GITHUB_WORKSPACE}/sonar-project.properties" ]]; then
     -Dsonar.host.url=${INPUT_HOST} \
     -Dsonar.projectKey=${SONAR_PROJECTKEY} \
     -Dsonar.projectName=${SONAR_PROJECTNAME} \
-    -Dsonar.login=${INPUT_LOGIN} \
+    -Dsonar.login=${INPUT_LOGIN} 
 else
   sonar-scanner \
     -Dsonar.host.url=${INPUT_HOST} \
-    -Dsonar.login=${INPUT_LOGIN} \
+    -Dsonar.login=${INPUT_LOGIN} 
 fi

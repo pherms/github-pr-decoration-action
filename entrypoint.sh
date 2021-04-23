@@ -11,7 +11,7 @@ if [ -z "$INPUT_SONARPROJECTNAME" ]; then
     echo "Input parameter sonarProjectName is required"
     exit 1
 fi
-if [ -z "$SONAR_TOKEN" ]; then
+if [ -z "${SONAR_TOKEN}" ]; then
     echo "Environment parameter SONAR_TOKEN is required"
     echo "$SONAR_TOKEN"
     exit 1

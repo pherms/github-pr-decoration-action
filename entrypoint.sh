@@ -88,7 +88,7 @@ echo "INPUT_SONARENABLESCAN: $INPUT_SONARENABLESCAN"
 # Build Sonarscanner begin command
 #-----------------------------------
 if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
-    sonar_begin_cmd="sonar-scanner -Dsonar.ProjectKey:\"${INPUT_SONARPROJECTKEY}\"-Dsonar.projectName\"${INPUT_SONARPROJECTNAME}\" -D:sonar.login=\"${INPUT_SONARTOKEN}\" -D:sonar.host.url=\"${INPUT_SONARHOSTNAME}\""
+    sonar_begin_cmd="sonar-scanner -Dsonar.ProjectKey:\"${INPUT_SONARPROJECTKEY}\"-Dsonar.projectName\"${INPUT_SONARPROJECTNAME}\" -Dsonar.login=\"${INPUT_SONARTOKEN}\" -Dsonar.host.url=\"${INPUT_SONARHOSTNAME}\""
     if [ -n "$INPUT_SONARORGANIZATION" ]; then
         sonar_begin_cmd="$sonar_begin_cmd /o:\"${INPUT_SONARORGANIZATION}\""
     fi
@@ -108,7 +108,7 @@ if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
         PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
 
         # Add pull request specific parameters in sonar scanner
-        sonar_begin_cmd="$sonar_begin_cmd -D:sonar.pullrequest.key=$PR_NUMBER -D:sonar.pullrequest.branch=$GITHUB_HEAD_REF -D:sonar.pullrequest.base=$GITHUB_BASE_REF -D:sonar.pullrequest.github.repository=$GITHUB_REPOSITORY -D:sonar.pullrequest.provider=github"
+        sonar_begin_cmd="$sonar_begin_cmd -Dsonar.pullrequest.key=$PR_NUMBER -Dsonar.pullrequest.branch=$GITHUB_HEAD_REF -Dsonar.pullrequest.base=$GITHUB_BASE_REF -Dsonar.pullrequest.github.repository=$GITHUB_REPOSITORY -Dsonar.pullrequest.provider=github"
 
     fi
 fi

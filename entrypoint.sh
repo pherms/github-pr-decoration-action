@@ -88,7 +88,7 @@ echo "INPUT_SONARENABLESCAN: $INPUT_SONARENABLESCAN"
 # Build Sonarscanner begin command
 #-----------------------------------
 if [[ "$INPUT_SONARENABLESCAN" == "true" ]]; then
-    sonar_begin_cmd="dotnet-sonarscanner begin /k:\"${INPUT_SONARPROJECTKEY}\" /n:\"${INPUT_SONARPROJECTNAME}\" /d:sonar.login=\"${INPUT_SONARTOKEN}\" /d:sonar.host.url=\"${INPUT_SONARHOSTNAME}\""
+    sonar_begin_cmd="sonar-scanner /k:\"${INPUT_SONARPROJECTKEY}\" /n:\"${INPUT_SONARPROJECTNAME}\" /d:sonar.login=\"${INPUT_SONARTOKEN}\" /d:sonar.host.url=\"${INPUT_SONARHOSTNAME}\""
     if [ -n "$INPUT_SONARORGANIZATION" ]; then
         sonar_begin_cmd="$sonar_begin_cmd /o:\"${INPUT_SONARORGANIZATION}\""
     fi
@@ -125,20 +125,7 @@ if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
 	fi
 fi
 
-REPOSITORY_NAME=$(basename "${GITHUB_REPOSITORY}")
-
-
-if [[ ! -f "${GITHUB_WORKSPACE}/sonar-project.properties" ]]; then
-  [[ -z ${INPUT_PROJECTKEY} ]] && SONAR_PROJECTKEY="${REPOSITORY_NAME}" || SONAR_PROJECTKEY="${INPUT_PROJECTKEY}"
-  [[ -z ${INPUT_PROJECTNAME} ]] && SONAR_PROJECTNAME="${REPOSITORY_NAME}" || SONAR_PROJECTNAME="${INPUT_PROJECTNAME}"
-  [[ -z ${INPUT_PROJECTVERSION} ]] && SONAR_PROJECTVERSION="" || SONAR_PROJECTVERSION="${INPUT_PROJECTVERSION}"
-  sonar-scanner \
-    -Dsonar.host.url=${INPUT_HOST} \
-    -Dsonar.projectKey=${SONAR_PROJECTKEY} \
-    -Dsonar.projectName=${SONAR_PROJECTNAME} \
-    -Dsonar.login=${INPUT_LOGIN} 
-else
-  sonar-scanner \
-    -Dsonar.host.url=${INPUT_HOST} \
-    -Dsonar.login=${INPUT_LOGIN} 
-fi
+# ----------------------------------
+# Run Sonarscanner command
+# ----------------------------------
+sh -c "$sonar_begin_cmd"

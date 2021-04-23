@@ -13,6 +13,7 @@ if [ -z "$INPUT_SONARPROJECTNAME" ]; then
 fi
 if [ -z "$SONAR_TOKEN" ]; then
     echo "Environment parameter SONAR_TOKEN is required"
+    echo "$SONAR_TOKEN"
     exit 1
 fi
 if [ -z "$INPUT_SONARENABLESCAN" ]; then

@@ -32,9 +32,6 @@ inputs:
     description: "Disable running of sonar scanner."
     default: true
     required: true
-  sonarToken:
-    description: "The SonarQube token"
-    required: false
 
 runs:
   using: "docker"

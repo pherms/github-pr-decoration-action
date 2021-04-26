@@ -15,7 +15,7 @@ ENV SONAR_SCANNER_DOTNET_TOOL_VERSION=5.0.4 \
     JRE_VERSION=11
 
 # Add Microsoft Debian apt-get feed 
-RUN wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+RUN wget https://packages.microsoft.com/config/ubuntu/20.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
     && dpkg -i packages-microsoft-prod.deb
 
 # Fix JRE Install https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=863199

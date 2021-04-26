@@ -122,7 +122,7 @@ fi
 #-----------------------------------
 # Dotnet restore command
 #-----------------------------------
-dotnet_restore_cmd="mono nuget restore"
+dotnet_restore_cmd="/usr/bin/nuget restore"
 if [ -n "$INPUT_DOTNETBUILDARGUMENTS" ]; then
     dotnet_restore_cmd="$dotnet_restore_cmd $GITHUB_WORKSPACE/$INPUT_DOTNETBUILDARGUMENTS"
 fi

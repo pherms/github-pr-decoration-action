@@ -29,10 +29,8 @@ RUN apt-get update -y \
     && apt-get update -y \
     && apt-get install --no-install-recommends -y nuget \
     && apt-get install --no-install-recommends -y aspnetcore-runtime-$DOTNETCORE_RUNTIME_VERSION \
+    && apt-get install --no-install-recommends -y openjdk-$JRE_VERSION-jre
 #    && apt-get install -y dotnet-sdk-$DOTNETCORE_RUNTIME_VERSION
-
-# Install Java Runtime for SonarScanner
-RUN apt-get install --no-install-recommends -y openjdk-$JRE_VERSION-jre
 
 # Install SonarScanner .NET global tool
 RUN dotnet tool install dotnet-sonarscanner --tool-path . --version $SONAR_SCANNER_DOTNET_TOOL_VERSION
